@@ -11,6 +11,7 @@
 #include "serial.h"
 #include "LCD_driver.h"
 #include "nokia_tester.h"
+#include "letters/letters.h"
 
 void ioinit(void);
 static int uart_putchar(char c, FILE *stream);
