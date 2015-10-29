@@ -19,7 +19,7 @@
 //				"Private" Function Definitions
 //
 //********************************************************************
-static void LCDSetPixel(int color, unsigned char x, unsigned char y);
+//static void LCDSetPixel(int color, unsigned char x, unsigned char y);
 
 
 //********************************************************************
@@ -311,7 +311,7 @@ void LCDPrintLogo(void)
 //  		   finishes RAMWR.
 //**NOTE** Because this function is static, it is essentially a "private" function
 //         and can only be used within this file!
-static void LCDSetPixel(int color, unsigned char x, unsigned char y)
+void LCDSetPixel(int color, unsigned char x, unsigned char y)
 {	
 	#ifdef EPSON
 		LCDCommand(PASET);   // page start/end ram

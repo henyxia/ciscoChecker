@@ -11,7 +11,7 @@
 #include "serial.h"
 #include "LCD_driver.h"
 #include "nokia_tester.h"
-#include "letters/letters.h"
+#include "letters.h"
 
 void ioinit(void);
 static int uart_putchar(char c, FILE *stream);
@@ -19,42 +19,27 @@ uint8_t uart_getchar(void);
 static FILE mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 
-
-int main(int argc,char * argv[]){
-
-//*******************************************************
-//					Main Code
-//*******************************************************
+int main(int argc,char * argv[])
+{
 	//Initialize ARM I/O
 	ioinit();
 	
 	printf("Initializing\n");
 	
-	//Show the splash-screen (Sparkfun Logo)
 	LCDInit();			//Initialize the LCD
 	
 	printf("Init. Done\n");
 	
 	LCDClear(BLACK);
 	printf("Logo...");
-	LCDPrintLogo();
+	//LCDPrintLogo();
+
+	create_letters_table();
+
+	printChar('A');
 	
-	while(1){
-		if((PIND & (1<<3)) == 0)
-		{
-			LCDClear(GREEN);
-			LCDPrintLogo();
-		}
-		if((PIND & (1<<4)) == 0)
-		{
-			LCDClear(PINK);
-			LCDPrintLogo();
-		}
-		if((PIND & (1<<5)) == 0)
-		{
-			LCDClear(BLACK);
-			LCDPrintLogo();
-		}
+	while(1)
+	{
 	}
     return 0;
 }
@@ -78,7 +63,7 @@ void ioinit(void)
 	PORTD = 0xFF;
 	
 	// Init timer 2
-	//Set Prescaler to 8. (Timer Frequency set to 16Mhz)
+	//Set Prescaler to 9. (Timer Frequency set to 16Mhz)
 	//Used for delay routines
 	TCCR2B = (1<<CS20); 	//Divde clock by 1 for 16 Mhz Timer 2 Frequency	
 }

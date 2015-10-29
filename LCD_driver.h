@@ -12,6 +12,7 @@ void LCDInit(void);
 void LCDClear(int color);
 void LCDPrintLogo(void);
 void LCDContrast(char setting);
+void LCDSetPixel(int color, unsigned char x, unsigned char y);
 
 //********************************************************************
 //
