@@ -36,7 +36,7 @@ int main(int argc,char * argv[])
 
 	create_letters_table();
 
-	printS("This is a damn long test !");
+	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
 
 	while(1)
 	{

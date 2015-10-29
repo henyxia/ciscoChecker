@@ -11,7 +11,7 @@
 #include <ctype.h>
 #include <avr/pgmspace.h>
 
-#define IMPLEMENTED_LETTERS	4
+#define IMPLEMENTED_LETTERS	12
 
 typedef struct
 {
@@ -22,7 +22,7 @@ typedef struct
 void	create_letters_table(void);
 void	printChar(char);
 void	printS(char*);
-letter	mLetter[26];
-char	alpha[IMPLEMENTED_LETTERS];
+letter	mLetter[63];
+char	alpha[63];//IMPLEMENTED_LETTERS];
 
 #endif
