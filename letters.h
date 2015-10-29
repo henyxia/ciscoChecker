@@ -11,14 +11,7 @@
 #include <ctype.h>
 #include <avr/pgmspace.h>
 
-#define IMPLEMENTED_LETTERS	1
-
-enum letterName
-{
-	LETTER_A = 0,
-	LETTER_B,
-	LETTER_C
-};
+#define IMPLEMENTED_LETTERS	4
 
 typedef struct
 {
@@ -29,5 +22,6 @@ typedef struct
 void	create_letters_table(void);
 void	printChar(char);
 letter	mLetter[26];
+char	alpha[IMPLEMENTED_LETTERS];
 
 #endif
