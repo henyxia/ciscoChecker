@@ -2,6 +2,9 @@
 #include "letters.h"
 #include "LCD_driver.h"
 
+int posX=0;
+int posY=0;
+
 int getIndex(char myChar)
 {
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
@@ -21,7 +24,15 @@ void printChar(char myChar)
 
 	// Displaying
 	for(int i=0; i<mLetter[sChar].nb; i++)
-		LCDSetPixel(WHITE, (mLetter[sChar].table[i] & 0xF0) >> 4, mLetter[sChar].table[i] & 0x0F);
+		LCDSetPixel(WHITE, posY + ((mLetter[sChar].table[i] & 0xF0) >> 4), posX + (mLetter[sChar].table[i] & 0x0F));
+
+	// Moving cursor
+	posX+=8;
+	if(posX>120)
+	{
+		posY+=16;
+		posX=0;
+	}
 }
 
 void addValuesToALetter(char* tLetter, int nb, ...)
@@ -40,8 +51,6 @@ void addValuesToALetter(char* tLetter, int nb, ...)
 
 void create_letters_table(void)
 {
-	printf("Creating the letters\n");
-
 	alpha[0] = 'A';
 	mLetter[0].nb = 37;
 	alpha[1] = 'B';
@@ -53,14 +62,12 @@ void create_letters_table(void)
 
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
 	{
-		printf("Implementing letter %d\n", i);
 		mLetter[i].table = NULL;
 		mLetter[i].table = malloc(sizeof(char) * (mLetter[i].nb+1));
 		if(mLetter[i].table == NULL)
-		{
-			printf("Error while implementing letter %d\n", i);
+		//FIXME
+		// Need to return bool here
 			return;
-		}
 	}
 
 	addValuesToALetter(mLetter[0].table, mLetter[0].nb, 0x13,0x22,0x24,0x31,0x35,0x41,0x45,0x50,0x56,0x60,0x66,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x90,0x96,0xA0,0xA6,0xB0,0xB6,0xC0,0xC6,0xD0,0xD6,0xE0,0xE6);
