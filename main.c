@@ -36,30 +36,7 @@ int main(int argc,char * argv[])
 
 	create_letters_table();
 
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
-	printChar('A');
-	printChar('B');
-	printChar('C');
-	printChar('D');
+	printS("This is a damn long test !");
 
 	while(1)
 	{

@@ -5,8 +5,28 @@
 int posX=0;
 int posY=0;
 
+int nstrlen(char* str)
+{
+	//FIXME
+	// Add a non infinite loop checker
+	int ret = 0;
+	while(str[ret] != '\0')
+		ret++;
+
+	return ret;
+}
+
+void printS(char* str)
+{
+	int len = nstrlen(str);
+	for(int i=0; i<len; i++)
+		printChar(str[i]);
+}
+
 int getIndex(char myChar)
 {
+	//FIXME
+	// Can be improved
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
 		if(alpha[i] == myChar)
 			return i;

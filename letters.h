@@ -21,6 +21,7 @@ typedef struct
 
 void	create_letters_table(void);
 void	printChar(char);
+void	printS(char*);
 letter	mLetter[26];
 char	alpha[IMPLEMENTED_LETTERS];
 
