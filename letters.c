@@ -2,15 +2,53 @@
 #include "letters.h"
 #include "LCD_driver.h"
 
+#define IMPLEMENTED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?"
+
 // Globals
 int			posX=0;
 int			posY=0;
-const char	alpha[] PROGMEM = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?";
-const char	alphaNb[] PROGMEM = {37};
+const char	alphaNb[] PROGMEM = {
+	37,35,20,0,//20,32,
+	0,0,0,0,//29,23,26,31,
+	0,0,0,0,//32,17,26,20,
+
+	0,0,0,0,//43,44,0,0,
+	0,0,0,0,
+	0,0,0,0,
+
+	0,0,0,0,
+	0,0,0,0,
+	0,0,0,0,
+
+	0,0,0,0,
+	0,0,0,0,
+	0,0,0,0,
+
+	0,0,0,0,
+	0,0,0,0,
+	0,0,0,0,
+
+	0,0,0
+};
 
 // Letter definition
-const char	letter_A[] PROGMEM = "\x13\x22\x24\x31\x35\x41\x45\x50\x56\x60\x66\x70\x71\x72\x73\x74\x75\x76\x80\x81\x82\x83\x84\x85\x86\x90\x96\xA0\xA6\xB0\xB6\xC0\xC6\xD0\xD6\xE0\xE6";
-const char*	const mLetter[] PROGMEM = {letter_A};
+const char	letter_A[] PROGMEM = {
+	0x13,0x22,0x24,0x31,0x35,0x41,0x45,0x50,0x56,0x60,
+	0x66,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x80,0x81,
+	0x82,0x83,0x84,0x85,0x86,0x90,0x96,0xA0,0xA6,0xB0,
+	0xB6,0xC0,0xC6,0xD0,0xD6,0xE0,0xE6};
+const char	letter_B[] PROGMEM = "\
+\x20\x21\x22\x23\x24\x30\x35\x40\x46\x50\
+\x56\x60\x66\x70\x75\x80\x81\x82\x83\x84\
+\x90\x95\xA0\xA6\xB0\xB6\xC0\xC6\xD0\xD5\
+\xE0\xE1\xE2\xE3\xE4";
+const char	letter_C[] PROGMEM = {
+	0x13,0x14,0x15,0x16,0x22,0x31,0x40,0x50,0x60,0x70,
+	0x80,0x90,0xA0,0xB0,0xC1,0xD2,0xE3,0xE4,0xE5,0xE6};
+
+
+const char*	const mLetter[] PROGMEM = {
+	letter_A, letter_B, letter_C};
 
 
 int nstrlen(char* str)
@@ -33,10 +71,12 @@ void printS(char* str)
 
 int getIndex(char myChar)
 {
+	char buffer[65];
+	strcpy(buffer, IMPLEMENTED_CHARS);
 	//FIXME
 	// Can be improved
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
-		if(alpha[i] == myChar)
+		if(buffer[i] == myChar)
 			return i;
 
 	// Displaying ? as unknown
@@ -52,15 +92,15 @@ void printChar(char myChar)
 	// Searching the char
 	int sChar = getIndex(myChar);
 
-	printf("Printing char %c, index %d of len %d\n", myChar, sChar, alphaNb[sChar]);
+	printf("Printing char %c, index %d of len %d\n", myChar, sChar, pgm_read_byte_near(alphaNb + sChar));
 
 	// Displaying
-	for(int i=0; i<alphaNb[sChar]; i++)
+	for(int i=0; i<pgm_read_byte_near(alphaNb + sChar); i++)
 	{
 		strcpy_P(buffer, (char*)pgm_read_word(&(mLetter[sChar])));
 		//LCDSetPixel(WHITE, posY + ((mLetter[sChar].table[i] & 0xF0) >> 4), posX + (mLetter[sChar].table[i] & 0x0F));
-		printf("X %02d Y%02d X %02x\n", (buffer[i] & 0xF0) >> 4, (buffer[i] & 0x0F), buffer[i]);
-		LCDSetPixel(WHITE, (buffer[i] & 0xF0) >> 4, (buffer[i] & 0x0F));
+		//printf("X %02d Y%02d X %02x\n", (buffer[i] & 0xF0) >> 4, (buffer[i] & 0x0F), buffer[i]);
+		LCDSetPixel(WHITE, posY + ((buffer[i] & 0xF0) >> 4), posX + (buffer[i] & 0x0F));
 	}
 
 	// Moving cursor
@@ -88,132 +128,19 @@ void addValuesToALetter(char* tLetter, int nb, ...)
 /*
 void create_letters_table(void)
 {
-	alpha[0] = 'A';
-	mLetter[0].nb = 37;
-	alpha[1] = 'B';
 	mLetter[1].nb = 35;
-	alpha[2] = 'C';
 	mLetter[2].nb = 20;
-	alpha[3] = 'D';
 	mLetter[3].nb = 32;
-	alpha[4] = 'E';
 	mLetter[4].nb = 29;
-	alpha[5] = 'F';
 	mLetter[5].nb = 23;
-	alpha[6] = 'G';
 	mLetter[6].nb = 26;
-	alpha[7] = 'H';
 	mLetter[7].nb = 31;
-	alpha[8] = 'I';
 	mLetter[8].nb = 32;
-	alpha[9] = 'J';
 	mLetter[9].nb = 17;
-	alpha[10] = 'K';
 	mLetter[10].nb = 26;
-	alpha[11] = 'L';
 	mLetter[11].nb = 20;
-	alpha[12] = 'M';
 	mLetter[12].nb = 43;
-	alpha[13] = 'N';
 	mLetter[13].nb = 44;
-	alpha[14] = 'O';
-	mLetter[14].nb = 20;
-	alpha[15] = 'P';
-	mLetter[15].nb = 32;
-	alpha[16] = 'Q';
-	mLetter[16].nb = 37;
-	alpha[17] = 'R';
-	mLetter[17].nb = 35;
-	alpha[18] = 'S';
-	mLetter[18].nb = 20;
-	alpha[19] = 'T';
-	mLetter[19].nb = 32;
-	alpha[20] = 'U';
-	mLetter[20].nb = 37;
-	alpha[21] = 'V';
-	mLetter[21].nb = 35;
-	alpha[22] = 'W';
-	mLetter[22].nb = 20;
-	alpha[23] = 'X';
-	mLetter[23].nb = 32;
-	alpha[24] = 'Y';
-	mLetter[24].nb = 37;
-	alpha[25] = 'Z';
-	mLetter[25].nb = 35;
-	alpha[26] = 'a';
-	mLetter[26].nb = 20;
-	alpha[27] = 'b';
-	mLetter[27].nb = 32;
-	alpha[28] = 'c';
-	mLetter[28].nb = 37;
-	alpha[29] = 'd';
-	mLetter[29].nb = 35;
-	alpha[30] = 'e';
-	mLetter[30].nb = 20;
-	alpha[31] = 'f';
-	mLetter[31].nb = 32;
-	alpha[32] = 'g';
-	mLetter[32].nb = 37;
-	alpha[33] = 'h';
-	mLetter[33].nb = 35;
-	alpha[34] = 'i';
-	mLetter[34].nb = 20;
-	alpha[35] = 'j';
-	mLetter[35].nb = 32;
-	alpha[36] = 'k';
-	mLetter[36].nb = 37;
-	alpha[37] = 'l';
-	mLetter[37].nb = 35;
-	alpha[38] = 'm';
-	mLetter[38].nb = 20;
-	alpha[39] = 'n';
-	mLetter[39].nb = 32;
-	alpha[40] = 'o';
-	mLetter[40].nb = 37;
-	alpha[41] = 'p';
-	mLetter[41].nb = 35;
-	alpha[42] = 'q';
-	mLetter[42].nb = 20;
-	alpha[43] = 'r';
-	mLetter[43].nb = 32;
-	alpha[44] = 's';
-	mLetter[44].nb = 37;
-	alpha[45] = 't';
-	mLetter[45].nb = 35;
-	alpha[46] = 'u';
-	mLetter[46].nb = 20;
-	alpha[47] = 'v';
-	mLetter[47].nb = 32;
-	alpha[48] = 'w';
-	mLetter[48].nb = 37;
-	alpha[49] = 'x';
-	mLetter[49].nb = 35;
-	alpha[50] = 'y';
-	mLetter[50].nb = 20;
-	alpha[51] = 'z';
-	mLetter[51].nb = 32;
-	alpha[52] = '0';
-	mLetter[52].nb = 37;
-	alpha[53] = '1';
-	mLetter[53].nb = 35;
-	alpha[54] = '2';
-	mLetter[54].nb = 20;
-	alpha[55] = '3';
-	mLetter[55].nb = 32;
-	alpha[56] = '4';
-	mLetter[56].nb = 37;
-	alpha[57] = '5';
-	mLetter[57].nb = 35;
-	alpha[58] = '6';
-	mLetter[58].nb = 20;
-	alpha[59] = '7';
-	mLetter[59].nb = 32;
-	alpha[60] = '8';
-	mLetter[60].nb = 37;
-	alpha[61] = '9';
-	mLetter[61].nb = 35;
-	alpha[62] = '?';
-	mLetter[62].nb = 0;
 
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
 	{
@@ -228,19 +155,8 @@ void create_letters_table(void)
 		}
 	}
 
-	// 'A'
-	addValuesToALetter(mLetter[0].table, mLetter[0].nb,
-			0x13,0x22,0x24,0x31,0x35,0x41,0x45,0x50,0x56,0x60,
-			0x66,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x80,0x81,
-			0x82,0x83,0x84,0x85,0x86,0x90,0x96,0xA0,0xA6,0xB0,
-			0xB6,0xC0,0xC6,0xD0,0xD6,0xE0,0xE6);
-	// 'B'
 	addValuesToALetter(mLetter[1].table, mLetter[1].nb,
-			0x20,0x21,0x22,0x23,0x24,0x30,0x35,0x40,0x46,0x50,
-			0x56,0x60,0x66,0x70,0x75,0x80,0x81,0x82,0x83,0x84,
-			0x90,0x95,0xA0,0xA6,0xB0,0xB6,0xC0,0xC6,0xD0,0xD5,
-			0xE0,0xE1,0xE2,0xE3,0xE4);
-	// 'C'
+		// 'C'
 	addValuesToALetter(mLetter[2].table, mLetter[2].nb,
 			0x13,0x14,0x15,0x16,0x22,0x31,0x40,0x50,0x60,0x70,
 			0x80,0x90,0xA0,0xB0,0xC1,0xD2,0xE3,0xE4,0xE5,0xE6);

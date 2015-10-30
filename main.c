@@ -31,11 +31,10 @@ int main(int argc,char * argv[])
 	printf("Init. Done\n");
 	
 	LCDClear(BLACK);
-	printf("Logo...");
+	printf("Screen cleared\n");
 	//LCDPrintLogo();
 
-	printChar('A');
-	//printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
 
 	while(1)
 	{
