@@ -34,9 +34,8 @@ int main(int argc,char * argv[])
 	printf("Logo...");
 	//LCDPrintLogo();
 
-	create_letters_table();
-
-	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	printChar('A');
+	//printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
 
 	while(1)
 	{
