@@ -7,48 +7,107 @@
 // Globals
 int			posX=0;
 int			posY=0;
-const char	alphaNb[] PROGMEM = {
-	37,35,20,0,//20,32,
-	0,0,0,0,//29,23,26,31,
-	0,0,0,0,//32,17,26,20,
-
-	0,0,0,0,//43,44,0,0,
-	0,0,0,0,
-	0,0,0,0,
-
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-
-	0,0,0
-};
 
 // Letter definition
 const char	letter_A[] PROGMEM = {
 	0x13,0x22,0x24,0x31,0x35,0x41,0x45,0x50,0x56,0x60,
 	0x66,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x80,0x81,
 	0x82,0x83,0x84,0x85,0x86,0x90,0x96,0xA0,0xA6,0xB0,
-	0xB6,0xC0,0xC6,0xD0,0xD6,0xE0,0xE6};
-const char	letter_B[] PROGMEM = "\
-\x20\x21\x22\x23\x24\x30\x35\x40\x46\x50\
-\x56\x60\x66\x70\x75\x80\x81\x82\x83\x84\
-\x90\x95\xA0\xA6\xB0\xB6\xC0\xC6\xD0\xD5\
-\xE0\xE1\xE2\xE3\xE4";
+	0xB6,0xC0,0xC6,0xD0,0xD6,0xE0,0xE6,0x00};
+const char	letter_B[] PROGMEM = {
+	0x20,0x21,0x22,0x23,0x24,0x30,0x35,0x40,0x46,0x50,
+	0x56,0x60,0x66,0x70,0x75,0x80,0x81,0x82,0x83,0x84,
+	0x90,0x95,0xA0,0xA6,0xB0,0xB6,0xC0,0xC6,0xD0,0xD5,
+	0xE0,0xE1,0xE2,0xE3,0xE4,0x00};
 const char	letter_C[] PROGMEM = {
 	0x13,0x14,0x15,0x16,0x22,0x31,0x40,0x50,0x60,0x70,
-	0x80,0x90,0xA0,0xB0,0xC1,0xD2,0xE3,0xE4,0xE5,0xE6};
+	0x80,0x90,0xA0,0xB0,0xC1,0xD2,0xE3,0xE4,0xE5,0xE6,
+	0x00};
 
+const char	letter_D[] PROGMEM = {0x00};
+const char	letter_E[] PROGMEM = {0x00};
+const char	letter_F[] PROGMEM = {0x00};
+const char	letter_G[] PROGMEM = {0x00};
+const char	letter_H[] PROGMEM = {0x00};
+const char	letter_I[] PROGMEM = {0x00};
+const char	letter_J[] PROGMEM = {0x00};
+const char	letter_K[] PROGMEM = {0x00};
+const char	letter_L[] PROGMEM = {0x00};
+const char	letter_M[] PROGMEM = {0x00};
+const char	letter_N[] PROGMEM = {0x00};
+const char	letter_O[] PROGMEM = {0x00};
+const char	letter_P[] PROGMEM = {0x00};
+const char	letter_Q[] PROGMEM = {0x00};
+const char	letter_R[] PROGMEM = {0x00};
+const char	letter_S[] PROGMEM = {0x00};
+const char	letter_T[] PROGMEM = {0x00};
+const char	letter_U[] PROGMEM = {0x00};
+const char	letter_V[] PROGMEM = {0x00};
+const char	letter_W[] PROGMEM = {0x00};
+const char	letter_X[] PROGMEM = {0x00};
+const char	letter_Y[] PROGMEM = {0x00};
+const char	letter_Z[] PROGMEM = {0x00};
+const char	letter_a[] PROGMEM = {0x00};
+const char	letter_b[] PROGMEM = {0x00};
+const char	letter_c[] PROGMEM = {0x00};
+const char	letter_d[] PROGMEM = {0x00};
+const char	letter_e[] PROGMEM = {0x00};
+const char	letter_f[] PROGMEM = {0x00};
+const char	letter_g[] PROGMEM = {0x00};
+const char	letter_h[] PROGMEM = {0x00};
+const char	letter_i[] PROGMEM = {0x00};
+const char	letter_j[] PROGMEM = {0x00};
+const char	letter_k[] PROGMEM = {0x00};
+const char	letter_l[] PROGMEM = {0x00};
+const char	letter_m[] PROGMEM = {0x00};
+const char	letter_n[] PROGMEM = {0x00};
+const char	letter_o[] PROGMEM = {0x00};
+const char	letter_p[] PROGMEM = {0x00};
+const char	letter_q[] PROGMEM = {0x00};
+const char	letter_r[] PROGMEM = {0x00};
+const char	letter_s[] PROGMEM = {0x00};
+const char	letter_t[] PROGMEM = {0x00};
+const char	letter_u[] PROGMEM = {0x00};
+const char	letter_v[] PROGMEM = {0x00};
+const char	letter_w[] PROGMEM = {0x00};
+const char	letter_x[] PROGMEM = {0x00};
+const char	letter_y[] PROGMEM = {0x00};
+const char	letter_z[] PROGMEM = {0x00};
+const char	letter_0[] PROGMEM = {0x00};
+const char	letter_1[] PROGMEM = {0x00};
+const char	letter_2[] PROGMEM = {0x00};
+const char	letter_3[] PROGMEM = {0x00};
+const char	letter_4[] PROGMEM = {0x00};
+const char	letter_5[] PROGMEM = {0x00};
+const char	letter_6[] PROGMEM = {0x00};
+const char	letter_7[] PROGMEM = {0x00};
+const char	letter_8[] PROGMEM = {0x00};
+const char	letter_9[] PROGMEM = {0x00};
+const char	letter_int[] PROGMEM = {0x00};
 
 const char*	const mLetter[] PROGMEM = {
-	letter_A, letter_B, letter_C};
+	letter_A, letter_B, letter_C, letter_D,
+	letter_E, letter_F, letter_G, letter_H,
+	letter_I, letter_J, letter_K, letter_L,
+
+	letter_M, letter_N, letter_O, letter_P,
+	letter_Q, letter_R, letter_S, letter_T,
+	letter_U, letter_V, letter_W, letter_X,
+
+	letter_Y, letter_Z, letter_a, letter_b,
+	letter_c, letter_d, letter_e, letter_f,
+	letter_g, letter_h, letter_i, letter_j,
+
+	letter_k, letter_l, letter_m, letter_n,
+	letter_o, letter_p, letter_q, letter_r,
+	letter_s, letter_t, letter_u, letter_v,
+
+	letter_w, letter_x, letter_y, letter_z,
+	letter_0, letter_1, letter_2, letter_3,
+	letter_4, letter_5, letter_6, letter_7,
+
+	letter_8, letter_9, letter_int
+};
 
 
 int nstrlen(char* str)
@@ -91,15 +150,15 @@ void printChar(char myChar)
 
 	// Searching the char
 	int sChar = getIndex(myChar);
+	strcpy_P(buffer, (char*)pgm_read_word(&(mLetter[sChar])));
+	int len = nstrlen(buffer);
 
-	printf("Printing char %c, index %d of len %d\n", myChar, sChar, pgm_read_byte_near(alphaNb + sChar));
+	printf("Printing char %c, index %d of len %d\n", myChar, sChar, len);
 
 	// Displaying
-	for(int i=0; i<pgm_read_byte_near(alphaNb + sChar); i++)
+	for(int i=0; i<len; i++)
 	{
-		strcpy_P(buffer, (char*)pgm_read_word(&(mLetter[sChar])));
-		//LCDSetPixel(WHITE, posY + ((mLetter[sChar].table[i] & 0xF0) >> 4), posX + (mLetter[sChar].table[i] & 0x0F));
-		//printf("X %02d Y%02d X %02x\n", (buffer[i] & 0xF0) >> 4, (buffer[i] & 0x0F), buffer[i]);
+		printf("I %02d X %02d Y%02d X %02x\n", i, (buffer[i] & 0xF0) >> 4, (buffer[i] & 0x0F), buffer[i]);
 		LCDSetPixel(WHITE, posY + ((buffer[i] & 0xF0) >> 4), posX + (buffer[i] & 0x0F));
 	}
 
