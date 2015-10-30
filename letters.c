@@ -2,7 +2,7 @@
 #include "letters.h"
 #include "LCD_driver.h"
 
-#define IMPLEMENTED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?"
+#define IMPLEMENTED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789? "
 
 // Globals
 int			posX=0;
@@ -126,6 +126,8 @@ const char	letter_7[] PROGMEM = {0x00};
 const char	letter_8[] PROGMEM = {0x00};
 const char	letter_9[] PROGMEM = {0x00};
 const char	letter_int[] PROGMEM = {0x00};
+const char	letter_space[] PROGMEM = {0x00};
+const char	letter_rn[] PROGMEM = {0x00};
 
 const char*	const mLetter[] PROGMEM = {
 	letter_A, letter_B, letter_C, letter_D,
@@ -148,7 +150,8 @@ const char*	const mLetter[] PROGMEM = {
 	letter_0, letter_1, letter_2, letter_3,
 	letter_4, letter_5, letter_6, letter_7,
 
-	letter_8, letter_9, letter_int
+	letter_8, letter_9, letter_int, letter_space,
+	letter_rn
 };
 
 
@@ -176,6 +179,22 @@ int getIndex(char myChar)
 	strcpy(buffer, IMPLEMENTED_CHARS);
 	//FIXME
 	// Can be improved
+	if(myChar>='A' && myChar<='Z')
+		return myChar - 'A';
+	if(myChar==' ')
+	{
+		posX+=8;
+		if(posX>120)
+		{
+			posY+=16;
+			posX=0;
+		}
+	}
+	if(myChar=='\n')
+	{
+		posY+=16;
+		posX=0;
+	}
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
 		if(buffer[i] == myChar)
 			return i;

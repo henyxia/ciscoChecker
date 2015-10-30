@@ -24,21 +24,40 @@ int main(int argc,char * argv[])
 	//Initialize ARM I/O
 	ioinit();
 	
-	printf("Initializing\n");
+	//printf("Initializing\n");
 	
 	LCDInit();			//Initialize the LCD
 	
-	printf("Init. Done\n");
+	//printf("Init. Done\n");
 	
 	LCDClear(BLACK);
-	printf("Screen cleared\n");
-	//LCDPrintLogo();
+	//printf("Screen cleared\n");
 
 	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	printS("ciscoChecker\n\n");
+	printS("Written by\n");
+	printS("Jean Wasilewski\n");
+	printS("and\n");
+	printS("Flavien Royer\n\n");
 
 	while(1)
 	{
+
+		if((PIND & (1<<3)) == 0)
+		{
+			printS("BUTTON A\n");
+		}
+		/*
+		if((PIND & (1<<4)) == 0)
+		{
+			printS("BUTTON B\n");
+		}
+		if((PIND & (1<<5)) == 0)
+		{
+			printS("BUTTON C\n");
+		}*/
 	}
+
     return 0;
 }
 
