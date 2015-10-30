@@ -207,11 +207,13 @@ int getIndex(char myChar)
 			posY+=16;
 			posX=0;
 		}
+		return -1;
 	}
 	if(myChar=='\n')
 	{
 		posY+=16;
 		posX=0;
+		return -1;
 	}
 	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
 		if(buffer[i] == myChar)
@@ -229,6 +231,9 @@ void printChar(char myChar)
 
 	// Searching the char
 	int sChar = getIndex(myChar);
+	if(sChar == -1)
+		return;
+	
 	strcpy_P(buffer, (char*)pgm_read_word(&(mLetter[sChar])));
 	int len = nstrlen(buffer);
 
