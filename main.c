@@ -33,7 +33,7 @@ int main(int argc,char * argv[])
 	LCDClear(BLACK);
 	//printf("Screen cleared\n");
 
-	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	//printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
 	printS("ciscoChecker\n\n");
 	printS("Written by\n");
 	printS("Jean Wasilewski\n");
