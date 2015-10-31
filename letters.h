@@ -15,5 +15,6 @@
 
 void	printChar(char);
 void	printS(char*);
+void	resetScreen();
 
 #endif

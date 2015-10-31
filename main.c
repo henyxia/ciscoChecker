@@ -34,11 +34,22 @@ int main(int argc,char * argv[])
 	//printf("Screen cleared\n");
 
 	//printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	// Boot screen
 	printS("ciscoChecker\n\n");
 	printS("Written by\n");
 	printS("Jean Wasilewski\n");
 	printS("and\n");
 	printS("Flavien Royer\n\n");
+
+	// Reset
+	delay_ms(3000);
+	LCDClear(BLACK);
+	resetScreen();
+
+	// Main loop
+	printS("Started !\n");
+	printS("Pinging ...");
+	printf("\n");
 
 	while(1)
 	{
