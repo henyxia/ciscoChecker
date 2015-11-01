@@ -13,28 +13,22 @@
 #include "nokia_tester.h"
 #include "letters.h"
 
-void ioinit(void);
-static int uart_putchar(char c, FILE *stream);
-uint8_t uart_getchar(void);
-void	getResponse();
-static FILE mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
-
+void		ioinit(void);
+static int	uart_putchar(char c, FILE *stream);
+uint8_t		uart_getchar(void);
+int			getResponse();
+static FILE	mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int main(int argc,char * argv[])
 {
-	//Initialize ARM I/O
-	ioinit();
-	
-	//printf("Initializing\n");
-	
-	LCDInit();			//Initialize the LCD
-	
-	//printf("Init. Done\n");
-	
-	LCDClear(BLACK);
-	//printf("Screen cleared\n");
+	// Vars
+	char	response[40];
 
-	//printS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?");
+	// Init
+	ioinit();
+	LCDInit();
+	LCDClear(BLACK);
+
 	// Boot screen
 	printS("ciscoChecker\n\n");
 	printS("Written by\n");
@@ -52,7 +46,6 @@ int main(int argc,char * argv[])
 	printS("Started !\n");
 	printS("Pinging ...\n");
 	printf("\n");
-
 	getResponse();
 
 	while(1)
