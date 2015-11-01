@@ -41,6 +41,7 @@ int main(int argc,char * argv[])
 	printS("Jean Wasilewski\n");
 	printS("and\n");
 	printS("Flavien Royer\n\n");
+	printS("v0.6");
 
 	// Reset
 	delay_ms(3000);

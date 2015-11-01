@@ -2,8 +2,6 @@
 #include "letters.h"
 #include "LCD_driver.h"
 
-#define IMPLEMENTED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789? "
-
 // Globals
 int			posX=0;
 int			posY=0;
@@ -170,7 +168,10 @@ const char	letter_y[] PROGMEM = {
 	0x60,0x71,0x82,0x93,0x84,0x75,0x66,0xA3,0xB3,0xC3,
 	0xD3,0xE3,0x00};
 const char	letter_z[] PROGMEM = {0x00};
-const char	letter_0[] PROGMEM = {0x00};
+const char	letter_0[] PROGMEM = {
+	0x13,0x24,0x35,0x46,0x56,0x66,0x76,0x86,0x96,0xA6,
+	0xB6,0xC5,0xD4,0xE3,0xD2,0xC1,0xB0,0xA0,0x90,0x80,
+	0x70,0x60,0x50,0x40,0x31,0x22,0x73,0x83,0x00};
 const char	letter_1[] PROGMEM = {0x00};
 const char	letter_2[] PROGMEM = {0x00};
 const char	letter_3[] PROGMEM = {0x00};
@@ -183,6 +184,13 @@ const char	letter_9[] PROGMEM = {0x00};
 const char	letter_int[] PROGMEM = {0x00};
 const char	letter_space[] PROGMEM = {0x00};
 const char	letter_rn[] PROGMEM = {0x00};
+const char	letter_exc[] PROGMEM = {
+	0x13,0x23,0x33,0x43,0x53,0x63,0x73,0x83,0x93,0xA3,
+	0xB3,0xE3,0x21,0x31,0x41,0x51,0x61,0x71,0x12,0x22,
+	0x32,0x42,0x52,0x62,0x72,0x82,0x92,0x14,0x24,0x34,
+	0x44,0x54,0x64,0x74,0x84,0x94,0x25,0x35,0x45,0x55,
+	0x65,0x75,0x00};
+const char	letter_dot[] PROGMEM = {0xE3,0x00};
 
 const char*	const mLetter[] PROGMEM = {
 	letter_A, letter_B, letter_C, letter_D,
@@ -205,8 +213,8 @@ const char*	const mLetter[] PROGMEM = {
 	letter_0, letter_1, letter_2, letter_3,
 	letter_4, letter_5, letter_6, letter_7,
 
-	letter_8, letter_9, letter_int, letter_space,
-	letter_rn
+	letter_8, letter_9, letter_int, letter_exc, 
+	letter_dot, letter_space, letter_rn
 };
 
 int nstrlen(char* str)
@@ -229,12 +237,19 @@ void printS(char* str)
 
 int getIndex(char myChar)
 {
-	char buffer[65];
-	strcpy(buffer, IMPLEMENTED_CHARS);
-	//FIXME
-	// Can be improved
 	if(myChar>='A' && myChar<='Z')
 		return myChar - 'A';
+	if(myChar>='a' && myChar<='z')
+		return myChar - 'a' + 26;
+	if(myChar>='0' && myChar<='9')
+		return myChar - '0' + 52;
+	if(myChar=='?')
+		return 62;
+	if(myChar=='!')
+		return 63;
+	if(myChar=='.')
+		return 64;
+
 	if(myChar==' ')
 	{
 		posX+=8;
@@ -251,14 +266,8 @@ int getIndex(char myChar)
 		posX=0;
 		return -1;
 	}
-	for(int i=0; i<IMPLEMENTED_LETTERS; i++)
-		if(buffer[i] == myChar)
-			return i;
 
-	// Displaying ? as unknown
-	//FIXME
-	//Only 'A' is available
-	return 0;
+	return 62;
 }
 
 void printChar(char myChar)
