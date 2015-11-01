@@ -16,6 +16,7 @@
 void ioinit(void);
 static int uart_putchar(char c, FILE *stream);
 uint8_t uart_getchar(void);
+void	getResponse();
 static FILE mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 
 
@@ -48,8 +49,10 @@ int main(int argc,char * argv[])
 
 	// Main loop
 	printS("Started !\n");
-	printS("Pinging ...");
+	printS("Pinging ...\n");
 	printf("\n");
+
+	getResponse();
 
 	while(1)
 	{
@@ -104,6 +107,19 @@ static int uart_putchar(char c, FILE *stream)
   loop_until_bit_is_set(UCSR0A, UDRE0);
   UDR0 = c;
   return 0;
+}
+
+void getResponse()
+{
+	char response[40];
+
+	// Waiting for the first char
+	while(!(UCSR0A & (1<<RXC0)));
+	response[0]=UDR0;
+	response[1]=0;
+	printS("Hello ");
+	printS(response);
+	printS(" !\n");
 }
 
 uint8_t uart_getchar(void)
