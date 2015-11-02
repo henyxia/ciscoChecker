@@ -13,21 +13,52 @@
 #include "nokia_tester.h"
 #include "letters.h"
 
+#define RESPONSE_SIZE	40
+
 void		ioinit(void);
 static int	uart_putchar(char c, FILE *stream);
+//static int	uart_getchar(char c, FILE *stream);
 uint8_t		uart_getchar(void);
-int			getResponse();
+void		getResponse(char*, int, int);
 static FILE	mystdout = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+//static FILE	mystdin = FDEV_SETUP_STREAM(NULL, uart_getchar, _FDEV_SETUP_READ);
+//static FILE uart_stdout = FDEV_SETUP_STREAM(_serial_putc, NULL, _FDEV_SETUP_WRITE);
+//static FILE uart_stdin = FDEV_SETUP_STREAM(NULL, _serial_getc, _FDEV_SETUP_READ);
+/*
+void _serial_putc(char c, FILE *stream) {
+	if ('\n' == c) {
+		_serial_putc('\r', stream);
+	}
 
+	while (!serial_sendc(c));
+}
+
+
+char _serial_getc(FILE *stream) {
+	unsigned char c = 0x00;
+	while (!serial_getc(&c));
+	return (char)c;
+}
+
+
+void serial_install_stdio()
+{
+	static FILE uart_stdout = FDEV_SETUP_STREAM(_serial_putc, NULL, _FDEV_SETUP_WRITE);
+	static FILE uart_stdin = FDEV_SETUP_STREAM(NULL, _serial_getc, _FDEV_SETUP_READ);
+	stdout = &uart_stdout;
+	stdin = &uart_stdin;
+}
+*/
 int main(int argc,char * argv[])
 {
 	// Vars
-	char	response[40];
+	char	response[RESPONSE_SIZE];
 
 	// Init
 	ioinit();
 	LCDInit();
 	LCDClear(BLACK);
+	//serial_install_stdio();
 
 	// Boot screen
 	printS("ciscoChecker\n\n");
@@ -46,10 +77,20 @@ int main(int argc,char * argv[])
 	printS("Started !\n");
 	printS("Pinging ...\n");
 	printf("\n");
-	getResponse();
+    
+	while( !(UCSR0A & (1<<RXC0)) );
+	getResponse(response, RESPONSE_SIZE, 20);
+	//scanf("%s", response);
+	printS("Hello ");
+	printS(response);
+	printS(" !\n");
+	printf("Response %s", response);
+
 
 	while(1)
 	{
+		getResponse(response, RESPONSE_SIZE, 5);
+		printS(response);
 
 		if((PIND & (1<<3)) == 0)
 		{
@@ -80,6 +121,7 @@ void ioinit(void)
 	UCSR0B = (1<<RXEN0)|(1<<TXEN0);		//Enable Rx and Tx in UART
     UCSR0C = (1<<UCSZ00)|(1<<UCSZ01);		//8-Bit Characters
     stdout = &mystdout; //Required for printf init
+	//stdin = &mystdin;
 	cli();
 	
 	// Arduino D3-5 are button pins
@@ -103,19 +145,45 @@ static int uart_putchar(char c, FILE *stream)
   return 0;
 }
 
-void getResponse()
+void getResponse(char* out, int maxSize, int timeout)
 {
-	char response[40];
-
-	// Waiting for the first char
-	while(!(UCSR0A & (1<<RXC0)));
-	response[0]=UDR0;
-	response[1]=0;
-	printS("Hello ");
-	printS(response);
-	printS(" !\n");
+	int i=0;
+	while(1)
+	{
+		if(i==maxSize)
+		{
+			out[i]=0;
+			return;
+		}
+		/*
+		if(i==0)
+		{
+			delay_ms(timeout);
+			if(!(UCSR0A & (1<<RXC0)))
+			{
+				out[i]=0;
+				return;
+			}
+		}
+		*/
+		while(!(UCSR0A & (1<<RXC0)));
+		out[i]=UDR0;
+		if(out[i]=='\r')
+		{
+			out[i+1]=0;
+			return;
+		}
+		i++;
+	}
 }
-
+/*
+static int uart_getchar(char c, FILE *stream)
+{
+	while(!(UCSR0A & (1<<RXC0)));
+	c=UDR0;
+	return 0;
+}
+*/
 uint8_t uart_getchar(void)
 {
     while( !(UCSR0A & (1<<RXC0)) );
