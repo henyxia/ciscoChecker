@@ -28,4 +28,4 @@ void reset(void);
 //*******************************************************
 //					General Definitions
 //*******************************************************
-#define MYUBRR 16	//Used to set the AVR Baud Rate TO 115200 (External 16MHz Oscillator)
+#define MYUBRR 206	//Used to set the AVR Baud Rate TO 115200 (External 16MHz Oscillator)

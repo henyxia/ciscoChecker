@@ -85,7 +85,7 @@ void ioinit(void)
 	// USART Baud rate: 115200 (With 16 MHz Clock)
     UBRR0H = (MYUBRR >> 8) & 0x7F;	//Make sure highest bit(URSEL) is 0 indicating we are writing to UBRRH
 	UBRR0L = MYUBRR;
-    UCSR0A = (1<<U2X0);					//Double the UART Speed
+//    UCSR0A = (1<<U2X0);					//Double the UART Speed
 	UCSR0B = (1<<RXEN0)|(1<<TXEN0);		//Enable Rx and Tx in UART
     UCSR0C = (1<<UCSZ00)|(1<<UCSZ01);		//8-Bit Characters
     stdout = &mystdout; //Required for printf init
