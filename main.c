@@ -31,6 +31,13 @@ int main(int argc,char * argv[])
 	LCDInit();
 	LCDClear(BLACK);
 
+	/*
+	//Test letters
+	printS("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
+	printS("abcdefghijklmnopqrstuvwxyz\n");
+	printS("?.!\n");
+	*/
+	
 	// Boot screen
 	printS("ciscoChecker\n\n");
 	printS("Written by\n");
@@ -53,7 +60,7 @@ int main(int argc,char * argv[])
 	getResponse(response, RESPONSE_SIZE, 20);
 	printS("> ");
 	printS(response);
-
+	
 
 	while(1)
 	{
